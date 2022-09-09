@@ -1,12 +1,25 @@
 import { useGlobalContext } from "../context";
+import {GoBookmark} from 'react-icons/go'
 
 const Meals = () => {
-    const context = useGlobalContext()
-    console.log(context)
+    const { meals } = useGlobalContext()
+    console.log(meals)
     return (
-        
-        <h1>Meals com</h1>
-    );
+        <section className="section-center">
+            {meals.map(meal => {
+                const { idMeal, strMeal: title, strMealThumb: image } = meal
+                return <articel key={idMeal} className='single-meal'>
+                    <img src={image} className='img' />
+                    <footer>
+                        <h4>{title}</h4>
+                        <button className="like-btn"><GoBookmark /></button>
+                    </footer>
+
+                    <div />
+                </articel>
+            })}
+        </section>
+    )
 };
 
 export default Meals;
