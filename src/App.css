@@ -164,15 +164,45 @@ ul {
 /* End Of Global Styles */
 
 /* Search */
+.search-container {
+  height: 3rem;
+  background: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form {
+  display: flex;
+  justify-content: center;  
+}
+.form div {
+  margin: 0 3px;
+}
+.search-container .form-input{
+  max-width: 200px;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--borderRadius);
+  background: var(--backgroundColor);
+  border: 1px solid var(--grey-200)
+}
+.search-container .btn{
+  font-size: 0.8rem;
+}
+::placeholder{
+  font-family: inherit;
+  color:var(--grey-500)
+}
 /* Favorite */
 /* Meals */
-.section-center {
+.section-center,section {
   padding: 2rem 0;
   margin: 0 auto;
   width:var(--view-width);
   max-width:var(--max-width);
+}
+.section-center{
   display: grid;
-  gap: 2rem;
+  gap:2rem;
 }
 @media screen and (min-width:776px){
   .section-center{
