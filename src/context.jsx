@@ -36,14 +36,16 @@ const AppProvider = ({ children }) => {
         setModal(false)
     }
 
-    const selectMeal = (idMeal, favoriteMeal) => {
-        console.log(idMeal)
+    const selectMeal = (idMeal, fromFavoriteMeal) => {
         let meal;
-        meal = meals.find(meal => meal.idMeal === idMeal)
+        if (fromFavoriteMeal)
+            meal = favorites.find(meal => meal.idMeal === idMeal)
+        else
+            meal = meals.find(meal => meal.idMeal === idMeal)
         setSelectedMeal(meal)
         setModal(true)
     }
-    const addFavoriteMeal = (idMeal) => {        
+    const addFavoriteMeal = (idMeal) => {
         let isInFavorite = favorites.find(meal => meal.idMeal === idMeal)
         if (isInFavorite) return
         let meal = meals.find(meal => meal.idMeal === idMeal)
@@ -55,7 +57,7 @@ const AppProvider = ({ children }) => {
 
     }
     const removeFavoriteMeal = (idMeal) => {
-        let updateFavorites = favorites.filter(meal => meal.idMeal!==idMeal)
+        let updateFavorites = favorites.filter(meal => meal.idMeal !== idMeal)
         setFavorites(updateFavorites);
 
     }
