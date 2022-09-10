@@ -6,6 +6,16 @@ const randomMealUrl = 'https://www.themealdb.com/api/json/v1/1/random.php';
 
 const AppContext = React.createContext()
 
+const getFavoritesFromLocalStorage = () => {
+ 
+    let favorites = localStorage.getItem('favorites');
+    if (favorites)
+        favorites = JSON.parse(localStorage.getItem('favorites'))
+    else
+        favorites = []
+    return favorites
+}
+
 const AppProvider = ({ children }) => {
 
     const [meals, setMeals] = useState([])
@@ -13,7 +23,7 @@ const AppProvider = ({ children }) => {
     const [showModal, setModal] = useState(false)
     const [searchTerm, setSearchTerm] = useState('')
     const [selectedMeal, setSelectedMeal] = useState(null)
-    const [favorites, setFavorites] = useState([])
+    const [favorites, setFavorites] = useState(getFavoritesFromLocalStorage())
 
     const fetchMeals = async (url) => {
         try {
@@ -49,21 +59,20 @@ const AppProvider = ({ children }) => {
         let isInFavorite = favorites.find(meal => meal.idMeal === idMeal)
         if (isInFavorite) return
         let meal = meals.find(meal => meal.idMeal === idMeal)
-        setFavorites([...favorites, meal])
-
-        //if (!favorites) {setFavorites([meal]);return}
-
-
+        let updateFavorites = [...favorites, meal]
+        setFavorites(updateFavorites)
+        localStorage.setItem('favorites', JSON.stringify(updateFavorites))
 
     }
     const removeFavoriteMeal = (idMeal) => {
         let updateFavorites = favorites.filter(meal => meal.idMeal !== idMeal)
         setFavorites(updateFavorites);
-
+        localStorage.setItem('favorites', JSON.stringify(updateFavorites))
     }
+    
 
     useEffect(() => {
-        fetchMeals(`${getMealByNameUrl}`)
+        fetchMeals(`${getMealByNameUrl}`)        
     }, [])
 
 
